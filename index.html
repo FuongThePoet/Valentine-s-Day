@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hộp Quà Valentine</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            overflow: hidden;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Hiệu ứng nảy nảy */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Hiệu ứng trái tim bay liên tục */
+        @keyframes floating {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-200px) scale(1.2); opacity: 0.7; }
+            100% { transform: translateY(-400px) scale(1.5); opacity: 0; }
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 30px;
+            animation: floating 3s linear infinite;
+        }
+
+        .gift-container {
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .gift-box {
+            width: 180px;
+            animation: bounce 1s infinite;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #d63384;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            display: none;
+            position: absolute;
+            top: -220px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gift-container.open .card {
+            display: block;
+            transform: translateX(-50%) scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message">Mở ra có bất ngờ đó bé iu 💓</div>
+
+    <div class="gift-container" onclick="openGift()">
+        <img src="hopqua-removebg-preview.png" class="gift-box" alt="Hộp Quà">
+        <img src="hinhthiep.jpg" class="card" width="500px" alt="Thiệp Chúc Mừng">
+    </div>
+
+    <audio id="bg-music" src="SƠN TÙNG M-TP  CÓ CHẮC YÊU LÀ ĐÂY  OFFICIAL MUSIC VIDEO - Sơn Tùng M-TP Official.mp3"></audio>
+
+    <script>
+        function openGift() {
+            let giftContainer = document.querySelector(".gift-container");
+            giftContainer.classList.add("open");
+
+            // Phát nhạc khi mở quà
+            let music = document.getElementById("bg-music");
+            music.play();
+        }
+
+        // Tạo hiệu ứng trái tim bay liên tục
+        setInterval(() => {
+            let heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.animationDuration = (Math.random() * 10 + 10) + "s";
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 500);
+    </script>
+
+</body>
+</html>
